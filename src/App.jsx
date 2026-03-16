@@ -1,19 +1,8 @@
 import { useState } from "react";
 
-const BASE = "https://deadline.com/wp-content/uploads/2026/03/";
+const BASE = "https://www.thewrap.com/wp-content/uploads/2026/03/";
 
 const CAST = [
-  // Hosts
-  {
-    name: "Nick Viall", role: "Host", occupation: "TV Personality / Podcast Host",
-    location: "Los Angeles, CA", actualAge: 44, gender: "male",
-    photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Nick_Viall_2019.jpg/440px-Nick_Viall_2019.jpg"
-  },
-  {
-    name: "Natalie Joy", role: "Host", occupation: "TV Personality",
-    location: "Los Angeles, CA", actualAge: 26, gender: "female",
-    photo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Natalie_Joy_Viall_%282023%29.jpg/440px-Natalie_Joy_Viall_%282023%29.jpg"
-  },
   // Women
   {
     name: "Angel Marinez", role: "Contestant", occupation: "Medical Esthetician",
@@ -51,69 +40,69 @@ const CAST = [
     photo: BASE + "AoA_LS_S01_051925_Joleen_Diaz_1302_R_B.jpg?w=600"
   },
   {
-    name: "Katharine Donahue", role: "Contestant", occupation: "Entrepreneur",
+    name: "Katharine Newman", role: "Contestant", occupation: "Entrepreneur",
     location: "New York, NY", actualAge: 48, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Katharine_Donahue_1526_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Katharine_Newman_1489_R_B.jpg?w=600"
   },
   {
-    name: "Lauren Johnson", role: "Contestant", occupation: "Registered Nurse",
-    location: "Huntsville, AL", actualAge: 29, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Lauren_Johnson_1739_R_B.jpg?w=600"
+    name: "Lauren Boggi", role: "Contestant", occupation: "Entrepreneur",
+    location: "Los Angeles, CA", actualAge: 29, gender: "female",
+    photo: BASE + "AoA_LS_S01_051925_Lauren_Boggi_1626_R_B.jpg?w=600"
   },
   {
     name: "Leah Woolfolk", role: "Contestant", occupation: "Flight Attendant",
     location: "Houston, TX", actualAge: 41, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Leah_Woolfolk_1982_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Leah_Woolfolk_1810_R_B.jpg?w=600"
   },
   {
     name: "Libby Vodicka", role: "Contestant", occupation: "Social Media Manager",
     location: "San Diego, CA", actualAge: 22, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Libby_Vodicka_2228_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Libby_Vodicka_1861_R_B.jpg?w=600"
   },
   {
-    name: "Lindey McNeil", role: "Contestant", occupation: "Social Media Manager",
+    name: "Lindsay Sage", role: "Contestant", occupation: "Social Media Manager",
     location: "Los Angeles, CA", actualAge: 24, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Lindey_McNeil_2524_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Lindey_Sage_2110_R_B.jpg?w=600"
   },
   {
-    name: "Michelle Sorro", role: "Contestant", occupation: "TV Host",
-    location: "Los Angeles, CA", actualAge: 46, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Michelle_Sorro_2789_R_B.jpg?w=600"
+    name: "Michelle Yoswa", role: "Contestant", occupation: "Business Owner",
+    location: "Redondo Beach, CA", actualAge: 46, gender: "female",
+    photo: BASE + "AoA_LS_S01_051925_Michelle_Yoswa_2179_R_B.jpg?w=600"
   },
   {
     name: "Pfeifer Hill", role: "Contestant", occupation: "Graphic Designer",
     location: "Seattle, WA", actualAge: 23, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Pfeifer_Hill_3051_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Pfeifer_Hill_2481_R_B.jpg?w=600"
   },
   {
-    name: "Sophie Cordova", role: "Contestant", occupation: "Marketing Manager",
+    name: "Sophie Schumacher", role: "Contestant", occupation: "Marketing Manager",
     location: "Cincinnati, OH", actualAge: 27, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Sophie_Cordova_3294_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Sophie_Schumacher_2653_R_B.jpg?w=600"
   },
   {
     name: "Theresa Demaria", role: "Contestant", occupation: "Stylist",
     location: "New York, NY", actualAge: 54, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Theresa_Demaria_3538_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Theresa_Demaria_2655_R_B.jpg?w=600"
   },
   {
-    name: "Tiffany Pennywell", role: "Contestant", occupation: "Pharmaceutical Sales",
-    location: "Frisco, TX", actualAge: 44, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Tiffany_Pennywell_3773_R_B.jpg?w=600"
+    name: "Tiffany Butler", role: "Contestant", occupation: "Life Coach",
+    location: "Charlotte, NC", actualAge: 44, gender: "female",
+    photo: BASE + "AoA_LS_S01_051925_Tiffany_Butler_2932_R_B.jpg?w=600"
   },
   {
     name: "Vanelle Fenmou", role: "Contestant", occupation: "Project Manager",
     location: "Dallas, TX", actualAge: 27, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Vanelle_Fenmou_4006_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Vanelle_Fenmou_3041_R_B.jpg?w=600"
   },
   {
     name: "Vanessa Drozda", role: "Contestant", occupation: "Salon Owner",
     location: "Milwaukee, WI", actualAge: 49, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Vanessa_Drozda_4255_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Vanessa_Drozda_3254_R2_B.jpg?w=600"
   },
   {
-    name: "Vicki Murphy", role: "Contestant", occupation: "Youth Life Coach",
-    location: "Chicago, IL", actualAge: 55, gender: "female",
-    photo: BASE + "AoA_LS_S01_051925_Vicki_Murphy_4492_R_B.jpg?w=600"
+    name: "Vickie Downing", role: "Contestant", occupation: "Dermatology Pharmaceutical Rep",
+    location: "Nashville, TN", actualAge: 55, gender: "female",
+    photo: BASE + "AoA_LS_S01_051925_Vickie_Downing_3368_R_B.jpg?w=600"
   },
   // Men
   {
@@ -122,9 +111,9 @@ const CAST = [
     photo: BASE + "AoA_LS_S01_051925_Andrew_Wheeler_4639_R_B.jpg?w=600"
   },
   {
-    name: "Billy Ryno", role: "Contestant", occupation: "Lawn Irrigation Co. Owner",
-    location: "Clearwater, FL", actualAge: 33, gender: "male",
-    photo: BASE + "AoA_LS_S01_051925_Billy_Ryno_4793_R_B.jpg?w=600"
+    name: "William Bosch", role: "Contestant", occupation: "Entrepreneur",
+    location: "Miami, FL", actualAge: 33, gender: "male",
+    photo: BASE + "AoA_LS_S01_051925_William_Bosch_7304_R_B.jpg?w=600"
   },
   {
     name: "Brian Wizenried", role: "Contestant", occupation: "Bakery Owner",
@@ -194,27 +183,27 @@ const CAST = [
   {
     name: "Len Gunn", role: "Contestant", occupation: "Retired / Adventurer",
     location: "San Diego, CA", actualAge: 58, gender: "male",
-    photo: BASE + "AoA_LS_S01_051925_Len_Gunn_6716_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Len_Gunn_6615_R_B.jpg?w=600"
   },
   {
     name: "Logan Goodrid", role: "Contestant", occupation: "Corporate Purchasing",
     location: "Columbus, OH", actualAge: 29, gender: "male",
-    photo: BASE + "AoA_LS_S01_051925_Logan_Goodrid_6961_R_B.jpg?w=600"
+    photo: BASE + "AoA_LS_S01_051925_Logan_Goodrid_6825_R_B.jpg?w=600"
   },
   {
-    name: "Sean Abramowitz", role: "Contestant", occupation: "Real Estate Developer",
-    location: "New York, NY", actualAge: 49, gender: "male",
-    photo: BASE + "AoA_LS_S01_051925_Sean_Abramowitz_7130_R_B.jpg?w=600"
+    name: "Sean Kelly", role: "Contestant", occupation: "Sports Performance Coach",
+    location: "Indianapolis, IN", actualAge: 49, gender: "male",
+    photo: BASE + "AoA_LS_S01_051925_Sean_Kelly_JR_7787_R_B.jpg?w=600"
   },
   {
-    name: "Tristan McMaster", role: "Contestant", occupation: "Romance Book Cover Model",
-    location: "Los Angeles, CA", actualAge: 31, gender: "male",
-    photo: BASE + "AoA_LS_S01_051925_Tristan_McMaster_7532_R_B.jpg?w=600"
+    name: "Tristan Davis", role: "Contestant", occupation: "Real Estate Investor",
+    location: "Atlanta, GA", actualAge: 31, gender: "male",
+    photo: BASE + "AoA_LS_S01_051925_Tristan_Davis_6999_R_B.jpg?w=600"
   },
   {
-    name: "West Latta", role: "Contestant", occupation: "Outdoor Sports Guide",
-    location: "Denver, CO", actualAge: 25, gender: "male",
-    photo: BASE + "AoA_LS_S01_051925_West_Latta_7821_R_B.jpg?w=600"
+    name: "West Mandell", role: "Contestant", occupation: "Founder of Creative Agency",
+    location: "San Diego, CA", actualAge: 25, gender: "male",
+    photo: BASE + "AoA_LS_S01_051925_West_Mandell_7166_R_B.jpg?w=600"
   },
 ];
 
@@ -247,8 +236,7 @@ function CastCard({ person, allRevealed, revealKey }) {
   const isRevealed = revealed || allRevealed;
   const diff = isRevealed ? Math.abs(guess - person.actualAge) : null;
 
-  const accentColor = person.role === "Host" ? "#e8c97e"
-    : person.gender === "female" ? "#d4a0e8" : "#7eb8e8";
+  const accentColor = person.gender === "female" ? "#d4a0e8" : "#7eb8e8";
 
   let resultEmoji = "", resultText = "", resultColor = "#888";
   if (isRevealed) {
@@ -258,16 +246,14 @@ function CastCard({ person, allRevealed, revealKey }) {
     else                  { resultEmoji = "\u2744\uFE0F"; resultText = `\u00B1${diff} yrs off`;    resultColor = "#e88a7e"; }
   }
 
-  const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(person.name)}&size=400&background=${person.role === "Host" ? "1a1000&color=e8c97e" : person.gender === "female" ? "1a0d22&color=d4a0e8" : "081422&color=7eb8e8"}&bold=true&font-size=0.28`;
+  const fallbackSrc = `https://ui-avatars.com/api/?name=${encodeURIComponent(person.name)}&size=400&background=${person.gender === "female" ? "1a0d22&color=d4a0e8" : "081422&color=7eb8e8"}&bold=true&font-size=0.28`;
 
   return (
     <div
       style={{
-        background: person.role === "Host"
-          ? "linear-gradient(160deg, #1a1000 0%, #0e0900 100%)"
-          : person.gender === "female"
-            ? "linear-gradient(160deg, #160d1e 0%, #0d081a 100%)"
-            : "linear-gradient(160deg, #081320 0%, #050e18 100%)",
+        background: person.gender === "female"
+          ? "linear-gradient(160deg, #160d1e 0%, #0d081a 100%)"
+          : "linear-gradient(160deg, #081320 0%, #050e18 100%)",
         border: `1px solid ${accentColor}1a`,
         borderRadius: 14,
         overflow: "hidden",
@@ -303,7 +289,7 @@ function CastCard({ person, allRevealed, revealKey }) {
           borderRadius: 20, padding: "2px 8px",
           fontSize: 9, fontFamily: "serif", color: accentColor, letterSpacing: 2, textTransform: "uppercase",
         }}>
-          {person.role === "Host" ? "Host" : person.gender === "female" ? "Women" : "Men"}
+          {person.gender === "female" ? "Women" : "Men"}
         </div>
         <div style={{ position: "absolute", bottom: 10, left: 11, right: 11 }}>
           <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", fontFamily: "'Georgia', serif", lineHeight: 1.2 }}>
@@ -366,13 +352,12 @@ export default function App() {
   const [allRevealed, setAllRevealed] = useState(false);
   const [revealKey, setRevealKey] = useState(0);
 
-  const filters = ["All", "Hosts", "Women", "Men"];
+  const filters = ["All", "Women", "Men"];
 
   const filtered = CAST.filter(p => {
     if (filter === "All") return true;
-    if (filter === "Hosts") return p.role === "Host";
-    if (filter === "Women") return p.gender === "female" && p.role !== "Host";
-    if (filter === "Men") return p.gender === "male" && p.role !== "Host";
+    if (filter === "Women") return p.gender === "female";
+    if (filter === "Men") return p.gender === "male";
     return true;
   });
 
