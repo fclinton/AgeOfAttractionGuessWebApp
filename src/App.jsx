@@ -1,4 +1,17 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+
+const STORAGE_KEY = "aoa-guesses";
+
+function loadSaved() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function saveTo(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+}
 
 const BASE = "https://www.thewrap.com/wp-content/uploads/2026/03/";
 
@@ -209,7 +222,7 @@ const CAST = [
 
 function AgeSlider({ value, onChange }) {
   return (
-    <div style={{ width: "100%", padding: "2px 0" }}>
+    <div style={{ width: "100%", padding: "6px 0" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 5 }}>
         <span style={{ fontSize: 10, color: "#555", fontFamily: "serif" }}>18</span>
         <span style={{ fontSize: 20, fontWeight: 700, color: "#e8c97e", fontFamily: "'Georgia', serif" }}>{value}</span>
@@ -220,7 +233,8 @@ function AgeSlider({ value, onChange }) {
         onChange={e => onChange(Number(e.target.value))}
         style={{
           width: "100%", appearance: "none", WebkitAppearance: "none",
-          height: 3, borderRadius: 2, outline: "none", cursor: "pointer",
+          height: 6, borderRadius: 3, outline: "none", cursor: "pointer",
+          touchAction: "none",
           background: `linear-gradient(to right, #e8c97e ${((value - 18) / 52) * 100}%, #252525 ${((value - 18) / 52) * 100}%)`,
         }}
       />
@@ -228,9 +242,9 @@ function AgeSlider({ value, onChange }) {
   );
 }
 
-function CastCard({ person, allRevealed, revealKey }) {
-  const [guess, setGuess] = useState(30);
-  const [revealed, setRevealed] = useState(false);
+function CastCard({ person, allRevealed, revealKey, savedGuess, savedRevealed, onGuessChange, onReveal }) {
+  const [guess, setGuess] = useState(savedGuess ?? 30);
+  const [revealed, setRevealed] = useState(savedRevealed ?? false);
   const [imgError, setImgError] = useState(false);
 
   const isRevealed = revealed || allRevealed;
@@ -309,12 +323,12 @@ function CastCard({ person, allRevealed, revealKey }) {
           <div style={{ fontSize: 9, color: accentColor, fontFamily: "serif", letterSpacing: 2, textTransform: "uppercase", marginBottom: 5 }}>
             Your Guess
           </div>
-          <AgeSlider value={guess} onChange={setGuess} />
+          <AgeSlider value={guess} onChange={v => { setGuess(v); onGuessChange(person.name, v); }} />
         </div>
 
         {!isRevealed ? (
           <button
-            onClick={() => setRevealed(true)}
+            onClick={() => { setRevealed(true); onReveal(person.name); }}
             style={{
               background: `${accentColor}12`, border: `1px solid ${accentColor}40`,
               color: accentColor, borderRadius: 7, padding: "7px 0",
@@ -348,11 +362,28 @@ function CastCard({ person, allRevealed, revealKey }) {
 }
 
 export default function App() {
+  const [saved, setSaved] = useState(loadSaved);
   const [filter, setFilter] = useState("All");
-  const [allRevealed, setAllRevealed] = useState(false);
+  const [allRevealed, setAllRevealed] = useState(() => saved._allRevealed ?? false);
   const [revealKey, setRevealKey] = useState(0);
 
   const filters = ["All", "Women", "Men"];
+
+  const updateSaved = useCallback((updater) => {
+    setSaved(prev => {
+      const next = typeof updater === "function" ? updater(prev) : updater;
+      saveTo(next);
+      return next;
+    });
+  }, []);
+
+  const handleGuessChange = useCallback((name, value) => {
+    updateSaved(prev => ({ ...prev, [name]: { ...prev[name], guess: value } }));
+  }, [updateSaved]);
+
+  const handleReveal = useCallback((name) => {
+    updateSaved(prev => ({ ...prev, [name]: { ...prev[name], revealed: true } }));
+  }, [updateSaved]);
 
   const filtered = CAST.filter(p => {
     if (filter === "All") return true;
@@ -399,7 +430,7 @@ export default function App() {
         </div>
 
         <button
-          onClick={() => { setAllRevealed(true); setRevealKey(k => k + 1); }}
+          onClick={() => { setAllRevealed(true); setRevealKey(k => k + 1); updateSaved(prev => ({ ...prev, _allRevealed: true })); }}
           style={{
             background: "#e8c97e18", border: "1px solid #e8c97e38",
             color: "#e8c97e", borderRadius: 7, padding: "8px 24px",
@@ -419,7 +450,16 @@ export default function App() {
         gap: 14,
       }}>
         {filtered.map(person => (
-          <CastCard key={`${person.name}-${revealKey}`} person={person} allRevealed={allRevealed} revealKey={revealKey} />
+          <CastCard
+            key={person.name}
+            person={person}
+            allRevealed={allRevealed}
+            revealKey={revealKey}
+            savedGuess={saved[person.name]?.guess}
+            savedRevealed={saved[person.name]?.revealed}
+            onGuessChange={handleGuessChange}
+            onReveal={handleReveal}
+          />
         ))}
       </div>
 
